@@ -11,11 +11,12 @@
 			"ES2015.symbol.wellknown",
 			"ES2015.Symbol"
 		],
+		"experimentalDecorators": true,
 		"module": "umd",
 		"moduleResolution": "node",
 		"noImplicitAny": true,
 		"noImplicitThis": true,
-		"noUnusedLocals": true,
+		"noUnusedLocals": false,
 		"noUnusedParameters": true,
 		"outDir": "./_build",
 		"preserveConstEnums": true,
@@ -26,6 +27,7 @@
 	},
 	"include": [
 		"./support/**/*.ts",
-		"./tests/**/*.ts"
+		"./tests/**/*.ts",
+		"./site/source/tutorials/003_creating_widgets/demo/finished/biz-e-corp/src/**/*.ts"
 	]
 }

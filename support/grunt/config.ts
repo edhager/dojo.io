@@ -1,6 +1,8 @@
 import { Config } from 'webserv/commands/createServer';
 import { middleware } from './config/webserv';
 import { repositorySource } from 'grunt-dojo2-extras/src/util/environment';
+let createProcessors = require('grunt-dojo2/tasks/util/postcss').createProcessors;
+
 import { join } from 'path';
 
 export interface WebServerConfig {
@@ -19,6 +21,10 @@ export const ghPagesBranch = 'gh-pages';
 export const binDirectory = join('node_modules', '.bin');
 
 export const distDirectory = '_dist';
+
+export const buildDirectory = '_build';
+
+export const htmlReportDirectory = 'html-report';
 
 export const siteDirectory = 'site';
 
@@ -144,10 +150,12 @@ export const api = {
 
 export const clean = {
 	api: [ '<%= tempDirectory %>' ],
+	build: [ '<%= buildDirectory %>'],
 	dist: [ '<%= distDirectory %>' ],
 	publish: [ '<%= publishDirectory %>' ],
 	sync: [ '<%= syncDirectory %>' ],
-	compiledFiles: [ './+(tests|support)/**/*.d.ts', './+(tests|support)/**/*.js' ]
+	compiledFiles: [ './+(tests|support)/**/*.d.ts', './+(tests|support)/**/*.js' ],
+	htmlReport: [ '<%= htmlReportDirectory %>' ]
 };
 
 export const hexo = {
@@ -249,11 +257,31 @@ export const tutorials = {
 	}
 };
 
+export const copy = {
+	'test-resources': {
+		src: 'site/source/tutorials/003_creating_widgets/demo/finished/**/*.css',
+		dest: '<%= buildDirectory %>/'
+	}
+};
+
 /**
  * Host a local development server
  */
 export const webserv: WebServerConfig = {
 	server: {
 		middleware
+	}
+};
+
+export const postcss = {
+	'tutorials': {
+		files: [{
+			expand: true,
+			src: ['site/source/tutorials/003_creating_widgets/demo/finished/**/*.css'],
+			dest: '<%= buildDirectory %>/'
+		}],
+			options: {
+			processors: createProcessors(buildDirectory + '/')
+		}
 	}
 };
