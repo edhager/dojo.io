@@ -1,2 +1,3 @@
+import '@dojo/test-extras/support/loadJsdom';
 import './commands/getApiPackages';
-import './003_creating_widgets/App';
+import './all-browser';
